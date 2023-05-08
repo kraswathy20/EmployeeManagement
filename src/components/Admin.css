@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Sigmar&family=Zeyada&display=swap');
+
+
+h1{
+    color:darkslategray;
+    font-family: 'Sigmar', cursive;
+}
+
+h2{
+    font-family: 'Zeyada', cursive;
+}
+
+p{
+    color: brown;
+    font-size: large;
+    font-weight:600;
+    padding: 40px;
+}
