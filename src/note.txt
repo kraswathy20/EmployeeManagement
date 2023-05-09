@@ -1,0 +1,6 @@
+Unique user id
+----------------
+
+uuid - library used to create unique ids
+
+npm i react-uuid

@@ -1,6 +1,9 @@
-import {React,useState} from "react";
+import {React,useState,useEffect} from "react";
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
+import uuid from "react-uuid";
+import axios from "axios";
+
 
 function Add() {
 
@@ -10,12 +13,28 @@ function Add() {
   const [age,setAge]=useState(0)
   const [desig,setDesig]=useState('')
   const [salary,setSalary]=useState(0)
+  
 
-// 
+useEffect(()=>{
+  setId(uuid())
+},[])
 
- const addEmployee=(e)=>{
-  console.log(uname);
-  console.log(age);
+ const addEmployee=async(e)=>{
+
+  setId(uuid().slice(0,3));
+const body={
+  id,
+  uname,
+  age,
+  designation:desig,
+  salary
+}
+
+const result= await axios.post('http://localhost:8000/addEmployee',body)
+alert(result.data.message)
+
+  // console.log(body);
+  
  }
 
   return (
@@ -52,8 +71,10 @@ function Add() {
           <Form.Label>Salary</Form.Label>
           <Form.Control onChange={(e)=>setSalary(e.target.value)} type="text" placeholder="" />
         </Form.Group>
-        <Button onClick={(e)=>addEmployee(e)} variant="info" className="ms-5 rounded ">Add</Button>
-        <Button variant="warning" className="ms-5 rounded ">Cancel</Button>
+        <div className="text-center">
+        <Button onClick={(e)=>addEmployee(e)} variant="info" className="ms-5 rounded border mb-2">Add</Button>
+        <Button variant="warning" className="ms-5 rounded border mb-2">Cancel</Button>
+        </div>
       </Form>
     </div>
   );
