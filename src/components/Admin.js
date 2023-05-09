@@ -1,19 +1,35 @@
-import React from "react";
+import {React,useState, useEffect} from "react";
 import "./Admin.css";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Admin() {
+
+const [allEmployees,setAllEmployees]=useState([])
+// api call
+const fetchData=async ()=>{
+  const result=await axios.get('http://localhost:8000/getAllEmployee')
+  setAllEmployees(result.data.employees);
+}
+console.log(allEmployees);
+useEffect(()=>{
+  fetchData()
+},[])
+
   return (
     <div>
     <div className="text-end me-3 mt-2">
+    <Link to={'/add'}>
     <Button className="ms-3 rounded" variant="success"> 
     <i class="fa-solid fa-user-plus"></i> Add Employee</Button>
+    </Link>
     </div>
       <h1 className="mt-5 text-center">
         {" "}
         <strong> Employee Management App</strong>
-        <i class="fa-solid fa-people-line"></i>
+        <i class="fa-solid fa-people-line ms-3"></i>
       </h1>
 
       <h2 className="mt-2 text-center">Onboarding with ease</h2>
@@ -37,12 +53,14 @@ function Admin() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>23</td>
-            <td>Developer</td>
-            <td>34000</td>
+          {
+            allEmployees?.map((item,index)=>(
+              <tr>
+            <td>{index+1}</td>
+            <td>{item.uname}</td>
+            <td>{item.age}</td>
+            <td>{item.designation}</td>
+            <td>{item.salary}</td>
             <td>
             <Button className="ms-3 rounded" variant="success"> <i class="fa-solid fa-user-pen"></i> Edit</Button>
             <Button className="ms-3 rounded" variant="info"> <i class="fa-solid fa-eye"></i> View</Button>
@@ -50,6 +68,9 @@ function Admin() {
 
             </td>
           </tr>
+            ))
+          }
+          
         </tbody>
       </Table>
     </div>

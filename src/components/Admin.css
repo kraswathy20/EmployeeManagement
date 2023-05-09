@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Sigmar&family=Zeyada&display=swap');
 
 
-h1{
+h1,h3{
     color:darkslategray;
     font-family: 'Sigmar', cursive;
 }
