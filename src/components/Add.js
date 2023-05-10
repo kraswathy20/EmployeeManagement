@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
 import uuid from "react-uuid";
 import axios from "axios";
+import { useNavigate ,Link} from "react-router-dom";
 
 
 function Add() {
@@ -16,8 +17,11 @@ function Add() {
   
 
 useEffect(()=>{
-  setId(uuid())
+  setId(uuid().slice(0,3))
 },[])
+
+// create an object for the hook
+let location=useNavigate()
 
  const addEmployee=async(e)=>{
 
@@ -32,7 +36,8 @@ const body={
 
 const result= await axios.post('http://localhost:8000/addEmployee',body)
 alert(result.data.message)
-
+// redirection to home page
+location('/')
   // console.log(body);
   
  }
@@ -73,7 +78,9 @@ alert(result.data.message)
         </Form.Group>
         <div className="text-center">
         <Button onClick={(e)=>addEmployee(e)} variant="info" className="ms-5 rounded border mb-2">Add</Button>
+        <Link to={'/'}>
         <Button variant="warning" className="ms-5 rounded border mb-2">Cancel</Button>
+        </Link>
         </div>
       </Form>
     </div>
